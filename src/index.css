@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Dancing Script", cursive;
+  --font-body: "Quicksand", sans-serif;
+  --color-valentine-pink: #fff5f7;
+  --color-valentine-red: #ff4d6d;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-valentine-pink);
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+.script-font {
+  font-family: var(--font-display);
+}
