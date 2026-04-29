@@ -55,6 +55,18 @@ function App() {
   const nextStage = () => { if (stageIndex < stages.length - 1) setStageIndex(prev => prev + 1); };
   const prevStage = () => { if (stageIndex > 0) setStageIndex(prev => prev - 1); };
 
+  const moveNoButton = () => {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    setNoButtonPos({ position: 'fixed', top: `${y}px`, left: `${x}px` });
+    setNoCount(prev => prev + 1);
+  };
+
+  const addFlower = (e: React.MouseEvent) => {
+    const newFlower = { x: e.clientX, y: e.clientY, id: Date.now() };
+    setFlowers(prev => [...prev, newFlower]);
+  };
+
   const handleYes = () => {
     setStageIndex(stages.indexOf('celebrate'));
     confetti({ particleCount: 200, spread: 90 });
@@ -73,6 +85,9 @@ function App() {
           {stage === 'intro' && (
             <motion.div key="intro" className="space-y-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               <h1 className="text-6xl text-[#FF4D6D] font-display font-bold">Hi KENDYYY ❤️</h1>
+              <p className="text-xl text-gray-600 font-body">
+                Thank you for the nickname: <span className="text-[#FF4D6D] font-bold">"{bensonNickname}"</span>
+              </p>
               <p className="text-xl">Welcome to our 100-page 'Nasty' Journey.</p>
               <button onClick={nextStage} className="bg-[#FF4D6D] text-white px-12 py-5 rounded-full text-2xl font-bold shadow-2xl animate-pulse">START THE JOURNEY</button>
             </motion.div>
@@ -86,7 +101,12 @@ function App() {
                 {stage === 'timeline' && <h2 className="text-4xl text-[#FF4D6D] font-bold">Our Journey</h2>}
                 {stage === 'reasons' && <ReasonList />}
                 {stage === 'pics' && <Gallery />}
-                {stage === 'garden' && <div className="h-64 bg-green-50 rounded-3xl border-2 border-dashed border-[#FF4D6D] flex items-center justify-center">🌸 Tap everywhere 🌸</div>}
+                {stage === 'garden' && (
+                  <div className="h-64 bg-green-50 rounded-3xl border-2 border-dashed border-[#FF4D6D] flex flex-col items-center justify-center" onClick={addFlower}>
+                    <h2 className="text-2xl text-[#FF4D6D] font-display font-bold text-center">Tap to grow our garden 🌸</h2>
+                    <p className="text-xs text-gray-400">Memory Count: {flowers.length}</p>
+                  </div>
+                )}
                 {stage === 'together' && <TogetherGame />}
                 <div className="flex justify-center gap-4 mt-8"><button onClick={prevStage} className="text-[#FF4D6D] underline">Back</button><button onClick={nextStage} className="bg-[#FF4D6D] text-white px-8 py-2 rounded-full font-bold">Next</button></div>
              </div>
@@ -96,7 +116,13 @@ function App() {
           {(['touchmap','blindfold','whisper','temperature','challenge','confession','outfit','sensory','countdown','fantasy','pleasurepath','command','redroom','pulsesync','alphabet','heatmap','ultimatedare','tease','fact1','fact2','fact3','fact4','fact5','contract','breathless','blind2','whisperwall','radar','wheel','secretfolder','finaltest','ascend1','ascend2','ascend3','ascend4','ascend5','ascend6','ascend7'].includes(stage)) && (
             <div key={stage} className="space-y-6">
                <h2 className="text-4xl text-red-600 font-bold uppercase tracking-widest">{stage.toUpperCase()}</h2>
-               <p className="text-red-800 italic">"The heat is rising, KENDYYY..."</p>
+               {stage === 'temperature' && (
+                  <div className="space-y-4">
+                    <input type="range" min="0" max="100" value={temp} onChange={(e) => setTemp(parseInt(e.target.value))} className="w-full accent-red-600" />
+                    <p className="text-4xl font-bold text-red-600">{temp}% {temp > 90 ? "BOILING NASTY" : "HEATING UP"}</p>
+                  </div>
+               )}
+               <p className="text-red-800 italic">"The heat is rising, KENDYYY..." {noCount > 0 && `(Missed me ${noCount} times!)`}</p>
                <button onClick={nextStage} className="bg-red-600 text-white px-10 py-3 rounded-full font-bold shadow-xl">CONTINUE DESCENT 😈</button>
             </div>
           )}
