@@ -7,6 +7,7 @@ import Gallery from './components/Gallery';
 import ReasonList from './components/ReasonList';
 import AccessPage from './components/AccessPage';
 import TogetherGame from './components/TogetherGame';
+import BensonsChoice from './components/BensonsChoice';
 import { SpicyScratch, NastySlot, MoodMap } from './components/SpicyInteractive';
 
 type Stage = 
@@ -18,7 +19,7 @@ type Stage =
   | 'fact4' | 'fact5' | 'contract' | 'breathless' | 'blind2' | 'whisperwall' | 'radar' 
   | 'wheel' | 'secretfolder' | 'finaltest' | 'ascend1' | 'ascend2' | 'ascend3' 
   | 'ascend4' | 'ascend5' | 'ascend6' | 'ascend7' | 'obsession' | 'labyrinth' 
-  | 'spicyslot' | 'spicyscratch' | 'moodmap' | 'deep1' | 'deep2' | 'deep3' | 'deep4' | 'deep5' 
+  | 'bensonschoice' | 'spicyslot' | 'spicyscratch' | 'moodmap' | 'deep1' | 'deep2' | 'deep3' | 'deep4' | 'deep5' 
   | 'deep6' | 'deep7' | 'deep8' | 'deep9' | 'deep10' | 'todolist' | 'diary' | 'overload' | 'timer' | 'moodring' 
   | 'descent1' | 'descent2' | 'descent3' | 'descent4' | 'descent5' | 'descent6' | 'descent7' | 'descent8' | 'descent9' | 'descent10'
   | 'descent11' | 'descent12' | 'descent13' | 'descent14' | 'descent15' | 'descent16' | 'descent17' | 'descent18'
@@ -34,7 +35,7 @@ const stages: Stage[] = [
   'fact4', 'fact5', 'contract', 'breathless', 'blind2', 'whisperwall', 'radar', 
   'wheel', 'secretfolder', 'finaltest', 'ascend1', 'ascend2', 'ascend3', 
   'ascend4', 'ascend5', 'ascend6', 'ascend7', 'obsession', 'labyrinth',
-  'spicyslot', 'spicyscratch', 'moodmap',
+  'bensonschoice', 'spicyslot', 'spicyscratch', 'moodmap',
   'deep1', 'deep2', 'deep3', 'deep4', 'deep5', 'deep6', 'deep7', 'deep8', 'deep9', 'deep10',
   'todolist', 'diary', 'overload', 'timer', 'moodring',
   'descent1', 'descent2', 'descent3', 'descent4', 'descent5', 'descent6', 'descent7', 'descent8', 'descent9', 'descent10',
@@ -120,6 +121,7 @@ function App() {
             )}
 
             {/* NEW SPICY INTERACTIVES */}
+            {stage === 'bensonschoice' && <div className="w-full flex flex-col items-center"><BensonsChoice /><button onClick={nextStage} className="bg-red-600 px-10 py-3 rounded-full font-black uppercase tracking-tighter mt-10">ACCEPT CHOICE 🫦</button></div>}
             {stage === 'spicyslot' && <div className="space-y-8"><h2 className="text-3xl font-black uppercase italic">Nasty Slot Machine</h2><NastySlot /><button onClick={nextStage} className="text-red-500 font-bold underline">Next Page</button></div>}
             {stage === 'spicyscratch' && <div className="space-y-8"><h2 className="text-3xl font-black uppercase italic">Secret Scratch Card</h2><SpicyScratch /><button onClick={nextStage} className="text-red-500 font-bold underline">Next Page</button></div>}
             {stage === 'moodmap' && <div className="space-y-8 w-full"><h2 className="text-3xl font-black uppercase italic text-red-600">The Mood Map</h2><MoodMap /><button onClick={nextStage} className="bg-red-600 px-8 py-2 rounded-full font-bold uppercase mt-4">Next Page</button></div>}
