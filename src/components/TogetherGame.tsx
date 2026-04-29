@@ -89,7 +89,7 @@ const TogetherGame = () => {
   const currentQ = questions[category][qIndex];
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#fff5f7] flex flex-col">
+    <div className="fixed inset-0 z-50 bg-[#0a0a0a] flex flex-col h-[100dvh] w-screen overflow-hidden">
       {/* Top Half - Benson */}
       <div className="flex-1 border-b-4 border-[#FF4D6D]/20 flex flex-col items-center justify-center p-6 relative">
         <div className="absolute top-4 left-4 bg-[#FF4D6D] text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Benson's Side</div>

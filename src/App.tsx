@@ -80,7 +80,8 @@ function App() {
   if (!hasAccess) return <AccessPage onAccessGranted={(nick) => { setBensonNickname(nick); setHasAccess(true); }} />;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative bg-[#0a0a0a] text-white overflow-hidden selection:bg-red-600 selection:text-white font-sans">
+    <div className="min-h-[100dvh] flex flex-col items-center justify-center relative bg-[#0a0a0a] text-white overflow-hidden selection:bg-red-600 selection:text-white font-sans">
+      <div className="noise-bg" />
       <FloatingHearts />
       <div className="z-10 w-full max-w-lg px-6 flex flex-col items-center justify-center min-h-screen text-center">
         <AnimatePresence mode="wait">
