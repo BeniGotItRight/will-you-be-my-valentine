@@ -1,82 +1,103 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useAppState } from '../hooks/useAppState';
 
 const questions = {
   truth: [
-    "What was your very first impression of me?",
-    "When did you first realize you had feelings for me?",
-    "What's one thing you've never told me before?",
-    "What's the 'nastiest' thought you've ever had about us?",
-    "Which part of me do you find the most irresistible?",
-    "What's your favorite memory of us being alone together?"
+    "What is the most degrading thing you've ever imagined me doing to you?",
+    "Tell me a filthy secret about your body that you've been hiding from me.",
+    "Which exact spot on your body makes you completely lose your mind when touched?",
+    "What's the absolute dirtiest thought you've had about us in public?",
+    "If I tied you up right now, what are you most afraid I would do to you?",
+    "Describe the exact moment you realized you wanted to completely surrender to me."
   ],
   dare: [
-    "Send a voice note of you saying something sweet.",
-    "Send a selfie of your best 'I miss you' face.",
-    "Whisper a secret into the microphone.",
-    "Describe what you'd do to me right now if there were no rules.",
-    "Show me exactly where you want me to touch you next.",
-    "Send me a text of your 'nasty' outfit idea."
+    "Send me a voice note begging for it using my name.",
+    "Go into the bathroom, touch yourself for exactly 60 seconds, and send a picture of your face.",
+    "Describe in explicit detail how you want me to leave a mark on you tonight.",
+    "Send a video of you whispering exactly what you want me to do to you.",
+    "Show me where you're aching the most right now.",
+    "Tell me exactly what you'd do if I ordered you to strip right this second."
   ],
   wyr: [
-    "Would you rather always hold my hand or always get my hugs?",
-    "Would you rather have a cozy night in or a wild adventure out?",
-    "Would you rather see me every day for an hour or once a week for a full day?",
-    "Would you rather have a slow passionate night or something fast and 'nasty'?",
-    "Would you rather let me take total control or you take control?",
-    "Would you rather I whisper in your ear or kiss your neck?"
+    "Would you rather be completely blindfolded and teased for an hour, or tied down and edged?",
+    "Would you rather I ruin your favorite outfit or make you wear nothing but a collar?",
+    "Would you rather have a slow, agonizingly deep session, or a violently rough quickie in a public bathroom?",
+    "Would you rather beg until you cry or be forced to stay completely silent while I take you?",
+    "Would you rather I use ice on you or hot wax?",
+    "Would you rather be praised for being a good girl/boy, or punished for being a brat?"
   ],
   spicy: [
-    "What's the one thing I could do right now that would make you lose control?",
-    "Describe your perfect 'nasty' night with me in detail.",
-    "If we were alone in a locked room for 1 hour, what's the first thing you'd do to me?",
-    "What's your wildest, most 'nasty' fantasy involving just the two of us?",
-    "What's the most provocative thing you've ever thought about doing with me?",
-    "Would you rather have a slow, romantic night or something much more intense and 'nasty'?",
-    "What part of my body are you most 'obsessed' with right now?",
-    "Describe the feeling you get when I'm being 'nasty' with you.",
-    "If you had to pick one 'nasty' order for me to follow right now, what would it be?",
-    "What's the 'dirtiest' thing you've ever imagined us doing in public?"
+    "What's the one command you'd secretly love me to force you to obey?",
+    "If we were alone in an elevator for 10 minutes, exactly how would you provoke me?",
+    "What's your most intense, unhinged fantasy that you're almost too embarrassed to admit?",
+    "Describe how it feels when I completely overpower you.",
+    "What's the nastiest thing you want to whisper in my ear while we're in a crowded room?",
+    "If you were completely naked and I walked in, what's the first thing you'd do?",
+    "What's your absolute favorite way I've ever made you moan?",
+    "Describe the feeling of me gripping your throat right before I kiss you.",
+    "If I told you to get on your knees right now, what would be running through your head?",
+    "What's the dirtiest thing you want me to do to you tonight?"
   ]
 };
 
 const TogetherGame = () => {
-  const [category, setCategory] = useState<keyof typeof questions | null>(null);
-  const [qIndex, setQIndex] = useState(0);
-  const [p1Answer, setP1Answer] = useState('');
-  const [p2Answer, setP2Answer] = useState('');
-  const [showAnswers, setShowAnswers] = useState(false);
+  const { appState, updateAppState } = useAppState();
+  const [role, setRole] = useState<string | null>(localStorage.getItem('user_role'));
+  const [localAnswer, setLocalAnswer] = useState('');
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    alert("Answer copied! Send it to your partner. 💋");
+  if (!appState) return <div>Syncing...</div>;
+
+  const handleRoleSelect = (r: string) => {
+    localStorage.setItem('user_role', r);
+    setRole(r);
   };
 
+  if (!role) {
+    return (
+      <div className="flex flex-col items-center justify-center space-y-10 w-full">
+        <h2 className="text-3xl font-black text-red-600 uppercase tracking-tighter italic">Who is holding this phone?</h2>
+        <div className="flex gap-4">
+          <button onClick={() => handleRoleSelect('Benson')} className="bg-red-900/40 border-2 border-red-500 p-6 rounded-2xl font-bold uppercase text-white">Benson</button>
+          <button onClick={() => handleRoleSelect('Kendy')} className="bg-red-900/40 border-2 border-red-500 p-6 rounded-2xl font-bold uppercase text-white">KENDYYY</button>
+        </div>
+      </div>
+    );
+  }
+
+  const category = appState.together_category as keyof typeof questions | null;
+  const qIndex = appState.together_q_index;
+  const bAnswer = appState.together_benson_ans;
+  const kAnswer = appState.together_kendy_ans;
+  const showAnswers = Boolean(bAnswer && kAnswer);
+
   const handleNext = () => {
-    if (category) {
-      if (qIndex < questions[category].length - 1) {
-        setQIndex(prev => prev + 1);
-        setP1Answer('');
-        setP2Answer('');
-        setShowAnswers(false);
-      } else {
-        setCategory(null);
-        setQIndex(0);
-      }
+    if (category && qIndex < questions[category].length - 1) {
+      updateAppState({ together_q_index: qIndex + 1, together_benson_ans: null, together_kendy_ans: null });
+      setLocalAnswer('');
+    } else {
+      updateAppState({ together_category: null, together_q_index: 0, together_benson_ans: null, together_kendy_ans: null });
+      setLocalAnswer('');
     }
+  };
+
+  const handleLockIn = () => {
+    if (!localAnswer.trim()) return;
+    if (role === 'Benson') updateAppState({ together_benson_ans: localAnswer });
+    else updateAppState({ together_kendy_ans: localAnswer });
   };
 
   if (!category) {
     return (
-      <div className="space-y-6">
-        <h2 className="text-4xl text-[#FF4D6D] font-display font-bold">Together Corner 🥂</h2>
-        <p className="text-gray-600 italic">Pick a category to play together...</p>
-        <div className="grid grid-cols-2 gap-4">
+      <div className="space-y-6 text-center w-full max-w-md">
+        <h2 className="text-5xl text-[#FF4D6D] font-black italic tracking-tighter uppercase">Extreme Nasty Corner 😈</h2>
+        <p className="text-gray-400 italic font-bold">Pick a category to explore your darkest desires. Both screens will sync.</p>
+        <div className="grid grid-cols-2 gap-4 mt-8">
           {Object.keys(questions).map((cat) => (
             <button
               key={cat}
-              onClick={() => setCategory(cat as any)}
-              className="bg-white/60 p-6 rounded-2xl border-2 border-[#FF4D6D]/10 hover:border-[#FF4D6D] capitalize font-bold text-[#FF4D6D] shadow-sm hover:shadow-md transition-all"
+              onClick={() => updateAppState({ together_category: cat, together_q_index: 0, together_benson_ans: null, together_kendy_ans: null })}
+              className="bg-red-950/40 p-6 rounded-2xl border-2 border-red-500/30 hover:border-red-500 capitalize font-black text-white shadow-xl transition-all"
             >
               {cat === 'wyr' ? 'Would You Rather' : cat}
             </button>
@@ -87,68 +108,57 @@ const TogetherGame = () => {
   }
 
   const currentQ = questions[category][qIndex];
+  const myAnswerState = role === 'Benson' ? bAnswer : kAnswer;
+  const partnerAnswerState = role === 'Benson' ? kAnswer : bAnswer;
+  const partnerRole = role === 'Benson' ? 'Kendy' : 'Benson';
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#0a0a0a] flex flex-col h-[100dvh] w-screen overflow-hidden">
-      {/* Top Half - Benson */}
-      <div className="flex-1 border-b-4 border-[#FF4D6D]/20 flex flex-col items-center justify-center p-6 relative">
-        <div className="absolute top-4 left-4 bg-[#FF4D6D] text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Benson's Side</div>
-        <div className="w-full max-w-md">
-           {showAnswers ? (
-             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-2xl font-body font-bold text-[#FF4D6D]">"{p1Answer}"</motion.div>
-           ) : (
-             <div className="space-y-2">
-                <textarea 
-                  value={p1Answer}
-                  onChange={(e) => setP1Answer(e.target.value)}
-                  placeholder="Benson, type your answer here..."
-                  className="w-full bg-white/10 p-4 rounded-2xl border-2 border-dashed border-[#FF4D6D]/20 outline-none h-24 text-white text-lg font-bold placeholder:text-white/20"
-                />
-                <button onClick={() => copyToClipboard(p1Answer)} className="text-xs text-[#FF4D6D]/60 hover:text-[#FF4D6D]">Copy to send online ↗️</button>
-             </div>
-           )}
-        </div>
+    <div className="w-full flex flex-col items-center justify-center p-6 space-y-8 relative z-10 text-center max-w-lg">
+      <div className="space-y-2">
+        <p className="text-xs font-black opacity-80 uppercase tracking-widest text-red-500">{category === 'wyr' ? 'Would You Rather' : category} - Round {qIndex + 1}</p>
+        <h3 className="text-3xl font-black italic text-white drop-shadow-md">"{currentQ}"</h3>
       </div>
 
-      {/* Question Bar */}
-      <div className="bg-[#FF4D6D] text-white p-4 shadow-xl z-10 text-center flex flex-col items-center gap-2">
-        <p className="text-xs font-bold opacity-80 uppercase tracking-widest">{category === 'wyr' ? 'Would You Rather' : category}</p>
-        <h3 className="text-xl font-bold">{currentQ}</h3>
-        <div className="flex gap-4 mt-2">
-           {!showAnswers ? (
-             <button 
-               onClick={() => setShowAnswers(true)}
-               disabled={!p1Answer && !p2Answer}
-               className="bg-white text-[#FF4D6D] px-6 py-2 rounded-full font-bold shadow-lg disabled:opacity-50"
-             >
-               Reveal Both
-             </button>
-           ) : (
-             <button onClick={handleNext} className="bg-white text-[#FF4D6D] px-6 py-2 rounded-full font-bold shadow-lg">Next Question</button>
-           )}
-           <button onClick={() => setCategory(null)} className="text-white underline text-sm">Exit Game</button>
+      {!showAnswers ? (
+        <div className="w-full space-y-6">
+          <textarea
+            value={localAnswer}
+            onChange={(e) => setLocalAnswer(e.target.value)}
+            disabled={Boolean(myAnswerState)}
+            placeholder="Type your dirtiest truth..."
+            className="w-full bg-black/50 p-6 rounded-2xl border-2 border-dashed border-red-500/30 outline-none h-32 text-white text-xl font-bold placeholder:text-white/20 focus:border-red-500 transition-all resize-none disabled:opacity-50"
+          />
+          <div className="flex justify-between items-center px-2">
+            <p className="text-sm font-bold text-gray-400">
+              {partnerAnswerState ? `🔥 ${partnerRole} locked in.` : `⏳ Waiting for ${partnerRole}...`}
+            </p>
+            <button
+              onClick={handleLockIn}
+              disabled={Boolean(myAnswerState) || !localAnswer.trim()}
+              className="bg-red-600 disabled:bg-gray-700 text-white px-8 py-3 rounded-full font-black uppercase tracking-widest shadow-xl disabled:shadow-none transition-all"
+            >
+              {myAnswerState ? 'Locked 🔒' : 'Lock In 😈'}
+            </button>
+          </div>
         </div>
-      </div>
-
-      {/* Bottom Half - KENDYYY */}
-      <div className="flex-1 flex flex-col items-center justify-center p-6 relative">
-        <div className="absolute bottom-4 right-4 bg-[#FF4D6D] text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">KENDYYY's Side</div>
-        <div className="w-full max-w-md">
-           {showAnswers ? (
-             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-2xl font-body font-bold text-[#FF4D6D]">"{p2Answer}"</motion.div>
-           ) : (
-             <div className="space-y-2 text-right">
-                <textarea 
-                  value={p2Answer}
-                  onChange={(e) => setP2Answer(e.target.value)}
-                  placeholder="KENDYYY, type your answer here..."
-                  className="w-full bg-white/10 p-4 rounded-2xl border-2 border-dashed border-[#FF4D6D]/20 outline-none h-24 text-white text-lg font-bold placeholder:text-white/20"
-                />
-                <button onClick={() => copyToClipboard(p2Answer)} className="text-xs text-[#FF4D6D]/60 hover:text-[#FF4D6D]">Copy to send online ↗️</button>
-             </div>
-           )}
-        </div>
-      </div>
+      ) : (
+        <AnimatePresence>
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="space-y-8 w-full">
+            <div className="space-y-2 border-b border-red-500/20 pb-6 text-left">
+              <p className="text-red-500 text-xs font-black uppercase tracking-widest">Benson's Confession</p>
+              <p className="text-2xl font-black text-white italic">"{bAnswer}"</p>
+            </div>
+            <div className="space-y-2 text-left">
+              <p className="text-red-500 text-xs font-black uppercase tracking-widest">KENDYYY's Confession</p>
+              <p className="text-2xl font-black text-white italic">"{kAnswer}"</p>
+            </div>
+            <div className="flex gap-4 justify-center pt-8">
+               <button onClick={handleNext} className="bg-white text-black px-8 py-3 rounded-full font-black shadow-lg">Next Dare</button>
+               <button onClick={() => updateAppState({ together_category: null })} className="text-white underline text-sm pt-3">Exit Category</button>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      )}
     </div>
   );
 };

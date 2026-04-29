@@ -9,6 +9,8 @@ import AccessPage from './components/AccessPage';
 import TogetherGame from './components/TogetherGame';
 import BensonsChoice from './components/BensonsChoice';
 import { SpicyScratch, NastySlot, MoodMap } from './components/SpicyInteractive';
+import RealtimeQuiz from './components/RealtimeQuiz';
+import { useAppState } from './hooks/useAppState';
 
 // 113 STAGES: 10% Sweet, 70% Nasty, 20% Extreme
 type Stage = 
@@ -47,16 +49,24 @@ const stages: Stage[] = [
 function App() {
   const [hasAccess, setHasAccess] = useState(false);
   const [bensonNickname, setBensonNickname] = useState('');
-  const [stageIndex, setStageIndex] = useState(0);
-  const stage = stages[stageIndex];
+  
+  const { appState, updateAppState } = useAppState();
+  const stageIndex = appState?.stage_index ?? 0;
+  const stage = stages[stageIndex] || 'intro';
+  
   const [noCount, setNoCount] = useState(0);
   const [noButtonPos, setNoButtonPos] = useState({ top: 'auto', left: 'auto', position: 'static' as any });
-  const [flowers, setFlowers] = useState<{x: number, y: number, id: number}[]>([]);
-  const [temp, setTemp] = useState(50);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const nextStage = () => { if (stageIndex < stages.length - 1) setStageIndex(prev => prev + 1); };
-  const prevStage = () => { if (stageIndex > 0) setStageIndex(prev => prev - 1); };
+  const flowers = appState?.garden_flowers ?? [];
+  const temp = appState?.temperature ?? 50;
+
+  const nextStage = () => { 
+    if (stageIndex < stages.length - 1) updateAppState({ stage_index: stageIndex + 1 }); 
+  };
+  const prevStage = () => { 
+    if (stageIndex > 0) updateAppState({ stage_index: stageIndex - 1 }); 
+  };
 
   const moveNoButton = () => {
     const x = Math.random() * (window.innerWidth - 100);
@@ -67,17 +77,18 @@ function App() {
 
   const addFlower = (e: React.MouseEvent) => {
     const newFlower = { x: e.clientX, y: e.clientY, id: Date.now() };
-    setFlowers(prev => [...prev, newFlower]);
+    updateAppState({ garden_flowers: [...flowers, newFlower] });
   };
 
   const handleYes = () => {
-    setStageIndex(stages.indexOf('celebrate'));
+    updateAppState({ stage_index: stages.indexOf('celebrate') });
     confetti({ particleCount: 200, spread: 90 });
     if (audioRef.current) audioRef.current.play().catch(e => console.log(e));
-    setTimeout(() => setStageIndex(stages.indexOf('letter')), 4000);
+    setTimeout(() => updateAppState({ stage_index: stages.indexOf('letter') }), 4000);
   };
 
   if (!hasAccess) return <AccessPage onAccessGranted={(nick) => { setBensonNickname(nick); setHasAccess(true); }} />;
+  if (!appState) return <div className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center font-bold">Syncing Connection...</div>;
 
   return (
     <div className="min-h-[100dvh] flex flex-col items-center justify-center relative bg-[#0a0a0a] text-white overflow-hidden selection:bg-red-600 selection:text-white font-sans">
@@ -185,7 +196,7 @@ function App() {
                 <h2 className="text-4xl font-black text-red-600 uppercase italic tracking-tighter shadow-red-500/20 drop-shadow-2xl">{stage.toUpperCase()}</h2>
                 {stage === 'temperature' && (
                   <div className="bg-red-950/20 p-8 rounded-[3rem] border border-red-500/20 space-y-6">
-                    <input type="range" min="0" max="100" value={temp} onChange={(e) => setTemp(parseInt(e.target.value))} className="w-full h-4 bg-red-900/30 rounded-full appearance-none accent-red-600 cursor-pointer" />
+                    <input type="range" min="0" max="100" value={temp} onChange={(e) => updateAppState({ temperature: parseInt(e.target.value) })} className="w-full h-4 bg-red-900/30 rounded-full appearance-none accent-red-600 cursor-pointer" />
                     <p className="text-5xl font-black text-red-500 italic animate-pulse">{temp}%</p>
                     <p className="text-sm font-bold opacity-60 uppercase">{temp > 90 ? "CRITICAL HEAT LEVEL" : "INCREASING PRESSURE"}</p>
                   </div>
@@ -233,6 +244,13 @@ function App() {
                     <button onClick={handleYes} className="bg-red-600 text-white px-16 py-5 rounded-full text-3xl font-black shadow-[0_0_50px_rgba(220,38,38,0.5)] z-20">YES ❤️</button>
                     <motion.button onMouseEnter={moveNoButton} onTouchStart={moveNoButton} style={noButtonPos} className="bg-transparent border-2 border-white/20 text-white/40 px-10 py-3 rounded-full text-xl font-bold z-20">NO</motion.button>
                 </div>
+              </div>
+            )}
+
+            {stage === 'quiz' && (
+              <div className="w-full flex flex-col items-center">
+                <RealtimeQuiz />
+                <button onClick={nextStage} className="text-red-500 font-bold underline mt-10">Skip / Next Page</button>
               </div>
             )}
 

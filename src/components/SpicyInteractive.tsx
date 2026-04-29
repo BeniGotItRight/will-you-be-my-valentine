@@ -1,18 +1,21 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useAppState } from '../hooks/useAppState';
 
 export const SpicyScratch = () => {
-  const [scratched, setScratched] = useState(false);
-  const secret = "Tonight, you belong to me completely. 🫦";
+  const { appState, updateAppState } = useAppState();
+  if (!appState) return <div>Syncing...</div>;
+  const scratched = appState.scratch_revealed;
+  const secret = "Tonight, you belong to me completely. No safeword. 😈";
 
   return (
-    <div className="relative w-64 h-32 bg-gray-800 rounded-2xl overflow-hidden cursor-pointer" onClick={() => setScratched(true)}>
+    <div className="relative w-72 h-40 bg-gray-900 rounded-3xl overflow-hidden cursor-pointer shadow-[0_0_20px_rgba(220,38,38,0.2)] border border-red-900" onClick={() => updateAppState({ scratch_revealed: true })}>
       {!scratched ? (
-        <div className="absolute inset-0 bg-gradient-to-br from-red-600 to-red-900 flex items-center justify-center text-white font-bold text-xl uppercase tracking-widest">
+        <div className="absolute inset-0 bg-gradient-to-br from-red-600 to-black flex items-center justify-center text-white font-black text-2xl uppercase tracking-widest p-4 text-center leading-tight hover:scale-105 transition-transform">
           Scratch to reveal...
         </div>
       ) : (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute inset-0 flex items-center justify-center p-4 text-center text-red-500 font-bold italic">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute inset-0 flex items-center justify-center p-6 text-center text-red-500 font-black italic text-xl leading-tight bg-black">
           {secret}
         </motion.div>
       )}
@@ -21,60 +24,70 @@ export const SpicyScratch = () => {
 };
 
 export const NastySlot = () => {
+  const { appState, updateAppState } = useAppState();
   const [spinning, setSpinning] = useState(false);
-  const [result, setResult] = useState("???");
-  const options = ["Bite", "Kiss", "Tease", "Tie", "Blindfold", "Lick"];
+  
+  if (!appState) return <div>Syncing...</div>;
+  const result = appState.slot_result;
+  const options = ["Gag", "Choke", "Beg", "Edge", "Spank", "Worship", "Punish", "Degrade"];
 
   const spin = () => {
     setSpinning(true);
+    // Fake local spin effect
     setTimeout(() => {
-      setResult(options[Math.floor(Math.random() * options.length)]);
+      const random = options[Math.floor(Math.random() * options.length)];
+      updateAppState({ slot_result: random });
       setSpinning(false);
-    }, 1000);
+    }, 1500);
   };
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      <div className="w-48 h-24 bg-black border-4 border-red-600 rounded-3xl flex items-center justify-center">
+    <div className="flex flex-col items-center gap-8">
+      <div className="w-64 h-32 bg-black border-4 border-red-600 rounded-[2rem] shadow-[0_0_40px_rgba(220,38,38,0.5)] flex items-center justify-center overflow-hidden">
         <motion.span 
-          key={result}
-          animate={spinning ? { y: [0, -20, 20, 0] } : {}}
-          transition={{ repeat: spinning ? Infinity : 0, duration: 0.1 }}
-          className="text-4xl text-white font-black uppercase italic tracking-tighter"
+          key={result + (spinning ? "spin" : "")}
+          animate={spinning ? { y: [0, -40, 40, 0], opacity: [1, 0.5, 1] } : {}}
+          transition={{ repeat: spinning ? Infinity : 0, duration: 0.15 }}
+          className="text-5xl text-red-500 font-black uppercase italic tracking-tighter"
         >
-          {spinning ? "???" : result}
+          {spinning ? "😈🔥💦" : result}
         </motion.span>
       </div>
-      <button onClick={spin} disabled={spinning} className="bg-red-600 text-white px-8 py-2 rounded-full font-bold uppercase shadow-lg shadow-red-600/30">Spin for a Dare</button>
+      <button onClick={spin} disabled={spinning} className="bg-red-600 text-white px-10 py-4 rounded-full font-black uppercase shadow-[0_0_20px_rgba(220,38,38,0.5)] hover:scale-105 transition-transform disabled:opacity-50 tracking-widest text-lg">
+        Pull Lever
+      </button>
     </div>
   );
 };
 
 export const MoodMap = () => {
-  const [mood, setMood] = useState<string | null>(null);
+  const { appState, updateAppState } = useAppState();
+  if (!appState) return <div>Syncing...</div>;
+  
+  const mood = appState.mood;
   const moods = [
-    { name: 'Hungry', color: 'bg-red-900', text: 'I want to devour every inch of you. 👄' },
-    { name: 'Teasing', color: 'bg-pink-600', text: 'I am going to make you beg tonight. 🫦' },
-    { name: 'Needing', color: 'bg-red-700', text: 'I can\'t breathe without you touching me. 🔥' },
-    { name: 'Dominant', color: 'bg-black', text: 'You are doing exactly what I say. 👑' }
+    { name: 'Predatory', color: 'bg-red-950 border border-red-500/50', text: 'I am hunting you tonight. Run if you want, I will catch you. 🐺' },
+    { name: 'Sadistic', color: 'bg-black border border-red-500', text: 'I want to see you cry just a little bit. 😈' },
+    { name: 'Possessive', color: 'bg-red-900 border border-black', text: 'You are my property. Do not forget it. 🔒' },
+    { name: 'Demanding', color: 'bg-red-800 border border-white/20', text: 'On your knees. Now. 👑' }
   ];
 
   return (
-    <div className="space-y-4 w-full">
-      <div className="grid grid-cols-2 gap-2">
+    <div className="space-y-6 w-full max-w-sm">
+      <div className="grid grid-cols-2 gap-3">
         {moods.map(m => (
           <button 
             key={m.name}
-            onClick={() => setMood(m.text)}
-            className={`${m.color} p-4 rounded-xl text-white font-bold text-xs uppercase tracking-widest transition-transform active:scale-95`}
+            onClick={() => updateAppState({ mood: m.text })}
+            className={`${m.color} p-5 rounded-2xl text-white font-black text-sm uppercase tracking-widest transition-transform active:scale-95 shadow-xl hover:shadow-red-500/20`}
           >
             {m.name}
           </button>
         ))}
       </div>
       {mood && (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white/10 p-4 rounded-2xl border border-white/20">
-          <p className="text-white italic font-bold">"{mood}"</p>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-red-950/40 p-6 rounded-3xl border-2 border-red-500/30 shadow-2xl backdrop-blur-sm">
+          <p className="text-white italic font-black text-lg">"{mood}"</p>
         </motion.div>
       )}
     </div>
