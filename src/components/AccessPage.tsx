@@ -28,45 +28,46 @@ const AccessPage = ({ onAccessGranted }: AccessPageProps) => {
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="fixed inset-0 z-[100] bg-[#fff5f7] flex flex-col items-center justify-center p-6 text-center"
+      className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center p-6 text-center"
     >
+      <div className="noise-bg" />
       <motion.div 
         initial={{ y: 20 }}
         animate={{ y: 0 }}
-        className="max-w-md w-full bg-white/60 backdrop-blur-xl p-8 rounded-[3rem] shadow-2xl border border-white"
+        className="max-w-md w-full bg-red-950/20 backdrop-blur-xl p-8 rounded-[3rem] shadow-2xl border border-red-500/20"
       >
         <h1 className="text-4xl text-[#FF4D6D] font-display font-bold mb-6">Access Required 🔐</h1>
         <p className="text-gray-600 mb-8 font-body">Only my special person can enter here.</p>
         
         <div className="space-y-6 text-left">
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Give me a nickname you'll call me:</label>
+            <label className="block text-sm font-bold text-gray-400 mb-2 uppercase tracking-widest">Give me a nickname you'll call me:</label>
             <input 
               type="text" 
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
               placeholder="Your nickname for me..."
-              className="w-full px-4 py-3 rounded-2xl border-2 border-[#FF4D6D]/10 focus:border-[#FF4D6D] outline-none transition-all bg-white/80"
+              className="w-full px-4 py-3 rounded-2xl border-2 border-red-500/20 focus:border-red-500 outline-none transition-all bg-white/5 text-white placeholder:text-white/20 font-bold"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Enter my birthday:</label>
+            <label className="block text-sm font-bold text-gray-400 mb-2 uppercase tracking-widest">Enter my birthday:</label>
             <div className="flex gap-2">
               <input 
                 type="number" 
                 placeholder="Day" 
                 value={day}
                 onChange={(e) => setDay(e.target.value)}
-                className="w-1/3 px-4 py-3 rounded-2xl border-2 border-[#FF4D6D]/10 focus:border-[#FF4D6D] outline-none transition-all bg-white/80"
+                className="w-1/3 px-4 py-3 rounded-2xl border-2 border-red-500/20 focus:border-red-500 outline-none transition-all bg-white/5 text-white placeholder:text-white/20 font-bold"
               />
               <select 
                 value={month}
                 onChange={(e) => setMonth(e.target.value)}
-                className="w-1/3 px-4 py-3 rounded-2xl border-2 border-[#FF4D6D]/10 focus:border-[#FF4D6D] outline-none transition-all bg-white/80"
+                className="w-1/3 px-4 py-3 rounded-2xl border-2 border-red-500/20 focus:border-red-500 outline-none transition-all bg-white/5 text-white font-bold"
               >
                 {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map(m => (
-                  <option key={m} value={m}>{m}</option>
+                  <option key={m} value={m} className="bg-black">{m}</option>
                 ))}
               </select>
               <input 
@@ -74,7 +75,7 @@ const AccessPage = ({ onAccessGranted }: AccessPageProps) => {
                 placeholder="Year" 
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
-                className="w-1/3 px-4 py-3 rounded-2xl border-2 border-[#FF4D6D]/10 focus:border-[#FF4D6D] outline-none transition-all bg-white/80"
+                className="w-1/3 px-4 py-3 rounded-2xl border-2 border-red-500/20 focus:border-red-500 outline-none transition-all bg-white/5 text-white placeholder:text-white/20 font-bold"
               />
             </div>
           </div>

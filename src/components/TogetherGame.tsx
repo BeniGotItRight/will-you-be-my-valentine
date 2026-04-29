@@ -102,7 +102,7 @@ const TogetherGame = () => {
                   value={p1Answer}
                   onChange={(e) => setP1Answer(e.target.value)}
                   placeholder="Benson, type your answer here..."
-                  className="w-full bg-white/40 p-4 rounded-2xl border-2 border-dashed border-[#FF4D6D]/20 outline-none h-24"
+                  className="w-full bg-white/10 p-4 rounded-2xl border-2 border-dashed border-[#FF4D6D]/20 outline-none h-24 text-white text-lg font-bold placeholder:text-white/20"
                 />
                 <button onClick={() => copyToClipboard(p1Answer)} className="text-xs text-[#FF4D6D]/60 hover:text-[#FF4D6D]">Copy to send online ↗️</button>
              </div>
@@ -142,7 +142,7 @@ const TogetherGame = () => {
                   value={p2Answer}
                   onChange={(e) => setP2Answer(e.target.value)}
                   placeholder="KENDYYY, type your answer here..."
-                  className="w-full bg-white/40 p-4 rounded-2xl border-2 border-dashed border-[#FF4D6D]/20 outline-none h-24"
+                  className="w-full bg-white/10 p-4 rounded-2xl border-2 border-dashed border-[#FF4D6D]/20 outline-none h-24 text-white text-lg font-bold placeholder:text-white/20"
                 />
                 <button onClick={() => copyToClipboard(p2Answer)} className="text-xs text-[#FF4D6D]/60 hover:text-[#FF4D6D]">Copy to send online ↗️</button>
              </div>

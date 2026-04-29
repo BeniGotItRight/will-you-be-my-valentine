@@ -198,8 +198,8 @@ function App() {
             {stage.startsWith('deep') && (
               <div className="space-y-8 w-full">
                 <h2 className="text-xs font-black text-red-600 uppercase tracking-[0.5em]">Extreme Confession #{stage.slice(4)}</h2>
-                <div className="bg-red-900/10 p-10 rounded-[3rem] border-l-8 border-red-600 shadow-2xl backdrop-blur-md">
-                   <p className="text-3xl font-black italic text-white leading-tight">
+                <div className="bg-red-950/40 p-12 rounded-[3.5rem] border-l-8 border-red-600 shadow-2xl backdrop-blur-md ring-1 ring-white/10">
+                   <p className="text-3xl md:text-4xl font-black italic text-white leading-tight drop-shadow-lg">
                     {stage === 'deep1' && "I want to be the only thing you think about when you're alone. 🫦"}
                     {stage === 'deep2' && "I want to feel your heart pounding against my chest in the dark. 🌑"}
                     {stage === 'deep3' && "I want to leave a trail of kisses from your neck all the way down. 🔥"}
