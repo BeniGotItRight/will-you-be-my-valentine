@@ -1,34 +1,30 @@
-# 💝 Valentine's Proposal for Felicity
+# KENDYYY Appreciation App 🫦
 
-A romantic, interactive web experience designed by Benson for Felicity.
+A high-fidelity, 100-page interactive experience created by **Benson** for **KENDYYY**.
 
-## Features
+## 🚀 Features
+- **100-Page Narrative Arc**: A journey transitioning from Sweet -> Nasty -> Extreme.
+- **Secure Access Gate**: Locked by Benson's birthday (6th Nov 2007) and a custom nickname.
+- **Together Corner**: A horizontal split-screen interactive game (Truth/Dare/Spicy/WYR).
+- **Online Friendly**: Integrated "Copy to Send" features for remote interaction.
+- **The Red Room**: A high-intensity section for deep confessions and fantasies.
+- **Nasty Void Section**: 20+ pages of extreme, no-limits provocations and deep secrets.
+- **Visuals & Celebrations**: Polaroid-style photo galleries and massive confetti celebrations.
 
-- 💖 Playful "catch me if you can" button interaction
-- 🎊 Beautiful confetti celebration
-- 💌 Heartfelt letter reveal
-- 🎵 Romantic background music
-- 📱 Fully responsive (mobile & desktop)
-
-## Tech Stack
-
+## 🛠️ Tech Stack
 - React + TypeScript
 - Vite
 - Tailwind CSS
-- Framer Motion
+- Framer Motion (Animations)
 - Canvas Confetti
 
-## Development
+## 📸 Media Setup
+- Photos: Place in `/public/assets/` as `pic1.jpg` and `pic2.jpg`.
+- Music: Place in `/public/assets/` as `music.mp3`.
 
-```bash
-npm install
-npm run dev
-```
+## 📦 Getting Started
+1. Install dependencies: `npm install`
+2. Run locally: `npm run dev`
+3. Build for production: `npm run build`
 
-## Deployment
-
-This project is deployed on Vercel.
-
----
-
-Made with ❤️ by Benson
+Created with ❤️ (and a lot of 'nasty' energy) by Benson.

@@ -25,22 +25,19 @@ const LetterModal = ({ isOpen }: LetterModalProps) => {
         
         <div className="relative z-10 text-gray-800 space-y-3 sm:space-y-4 text-center md:text-left">
             <p className="font-serif text-sm sm:text-base md:text-lg leading-relaxed text-gray-700 italic">
-            "Distance is just a test to see how far love can travel, and honestly? Ours has already gone the distance. Even though we met through a screen and there are miles between us today, you feel closer to me than anything else in my world.
+            "They say some connections are just meant to be, and I think ours is proving to be something truly special. Every moment we spend together and every conversation we have has made you one of the people I look forward to seeing most.
             </p>
             <p className="font-serif text-sm sm:text-base md:text-lg leading-relaxed text-gray-700 italic">
-            I hate that I can't reach out and hold your hand today, or see that specific look in your eyes when you laugh in person. But even across the distance, you've managed to become my favorite person, my safest space, and the best part of my day.
+            I appreciate every single laugh we share and how you've been there for me. You make my world much brighter, and I cherish the way we've grown so close.
             </p>
             <p className="font-serif text-sm sm:text-base md:text-lg leading-relaxed text-gray-700 italic">
-            Every pixel of you is worth the wait. Every late-night call and every "I miss you" text is just a countdown to the moment we finally don't have to say goodbye to a screen anymore.
-            </p>
-            <p className="font-serif text-sm sm:text-base md:text-lg leading-relaxed text-gray-700 italic">
-            Thank you for choosing me, even from far away. You are my Valentine today, tomorrow, and every day until I'm finally standing right in front of you.
+            Thank you for being such an incredible presence in my life, KENDYYY. I'm so lucky to have you, and I can't wait to see where our journey takes us and all the new memories we'll create together.
             </p>
             <p className="font-serif text-sm sm:text-base md:text-lg leading-relaxed text-gray-700 font-semibold mt-4 sm:mt-6">
-            I love you, Felicity.
+            You're truly special to me, KENDYYY.
             </p>
             <p className="font-serif text-sm sm:text-base md:text-lg leading-relaxed text-gray-700 mt-2 text-right">
-            Always yours,<br/>Benson
+            Always,<br/>Benson
             </p>
         </div>
       </motion.div>
