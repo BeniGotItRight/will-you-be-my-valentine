@@ -157,9 +157,10 @@ const TogetherGame = () => {
             <div className="flex gap-4 justify-center pt-8">
                <button onClick={handleNext} className="bg-white text-black px-8 py-3 rounded-full font-black shadow-lg">Next Dare</button>
                <button onClick={() => updateAppState({ together_category: null })} className="text-white underline text-sm pt-3">Exit Category</button>
+             </div>
             </div>
-          </motion.div>
-        </AnimatePresence>
+           </motion.div>
+          </AnimatePresence>
       )}
     </div>
   );
