@@ -48,6 +48,12 @@ const stages: Stage[] = [
 ];
 
 const STAGE_DETAILS: Record<string, { sub: string, text: string, icon: string }> = {
+  timeline: { sub: "OUR JOURNEY", text: "How long has it been since we first realized this was more than just a friendship? ⏳", icon: "📅" },
+  playlist: { sub: "THE SOUNDTRACK", text: "Which song reminds you most of the nights we spend talking until sunrise? 🎵", icon: "🎧" },
+  hug: { sub: "PHYSICAL WARMTH", text: "If I was holding you right now, would you ever want to let go? 🫂", icon: "❤️" },
+  destination: { sub: "OUR ESCAPE", text: "If we could disappear to anywhere in the world tonight, where would we go? ✈️", icon: "📍" },
+  compliment: { sub: "PURE ADORATION", text: "What is the one thing about your personality that you think I'm most obsessed with? ✨", icon: "💎" },
+  promise: { sub: "A SACRED VOW", text: "Will you promise to always be this honest and 'nasty' with me? 💍", icon: "🤝" },
   touchmap: { sub: "SENSORY EXPLORATION", text: "If my hands were on you right now, where would they be tracing first? 📍", icon: "📍" },
   blindfold: { sub: "TOTAL SURRENDER", text: "In complete darkness, which of your senses would crave me the most? 🕶️", icon: "🕶️" },
   whisper: { sub: "AUDITORY TEASE", text: "What's the one word you want me to whisper that would make you lose all control? 👂", icon: "👂" },
@@ -239,7 +245,7 @@ function App() {
               </div>
             )}
 
-            {(stage === 'timeline' || stage === 'reasons' || stage === 'pics' || stage === 'garden' || stage === 'playlist' || stage === 'hug' || stage === 'destination' || stage === 'compliment' || stage === 'promise' || stage === 'together') && (
+            {(stage === 'reasons' || stage === 'pics' || stage === 'garden' || stage === 'together') && (
                <div className="w-full space-y-6">
                   {stage === 'together' && <TogetherGame />}
                   {stage === 'garden' && (
@@ -263,7 +269,7 @@ function App() {
             {stage === 'spicyscratch' && <div className="space-y-8"><h2 className="text-3xl font-black uppercase italic">Secret Scratch Card</h2><SpicyScratch /><button onClick={nextStage} className="text-red-500 font-bold underline">Next Page</button></div>}
             {stage === 'moodmap' && <div className="space-y-8 w-full"><h2 className="text-3xl font-black uppercase italic text-red-600">The Mood Map</h2><MoodMap /><button onClick={nextStage} className="bg-red-600 px-8 py-2 rounded-full font-bold uppercase mt-4">Next Page</button></div>}
 
-            {(['touchmap','blindfold','whisper','temperature','challenge','confession','outfit','sensory','countdown','fantasy','pleasurepath','command','redroom','pulsesync','heatmap','ultimatedare','tease','contract','breathless','blind2','whisperwall','radar','wheel','secretfolder','finaltest','ascend1','ascend2','ascend3','ascend4','ascend5','ascend6','ascend7','todolist','diary','overload','timer','moodring','obsession','labyrinth'].includes(stage) || stage.startsWith('fact_') || stage.startsWith('memory_') || stage.startsWith('question_')) && (
+            {(['timeline','playlist','hug','destination','compliment','promise','touchmap','blindfold','whisper','temperature','challenge','confession','outfit','sensory','countdown','fantasy','pleasurepath','command','redroom','pulsesync','heatmap','ultimatedare','tease','contract','breathless','blind2','whisperwall','radar','wheel','secretfolder','finaltest','ascend1','ascend2','ascend3','ascend4','ascend5','ascend6','ascend7','todolist','diary','overload','timer','moodring','obsession','labyrinth'].includes(stage) || stage.startsWith('fact_') || stage.startsWith('memory_') || stage.startsWith('question_')) && (
               <div className="space-y-8 w-full">
                 <div className="flex flex-col items-center gap-2">
                   <span className="text-6xl mb-4 animate-pulse">{STAGE_DETAILS[stage]?.icon || "🔥"}</span>
