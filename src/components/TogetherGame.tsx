@@ -143,7 +143,9 @@ const TogetherGame = () => {
         </div>
       ) : (
         <AnimatePresence>
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="space-y-8 w-full">
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="red-glass p-10 rounded-[3.5rem] shadow-2xl relative overflow-hidden w-full">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-red-600/10 blur-3xl -mr-16 -mt-16 rounded-full" />
+            <div className="space-y-8 relative z-10">
             <div className="space-y-2 border-b border-red-500/20 pb-6 text-left">
               <p className="text-red-500 text-xs font-black uppercase tracking-widest">Benson's Confession</p>
               <p className="text-2xl font-black text-white italic">"{bAnswer}"</p>

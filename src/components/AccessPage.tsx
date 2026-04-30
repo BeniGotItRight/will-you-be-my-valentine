@@ -36,8 +36,9 @@ const AccessPage = ({ onAccessGranted }: AccessPageProps) => {
       <motion.div 
         initial={{ y: 20 }}
         animate={{ y: 0 }}
-        className="max-w-md w-full bg-red-950/20 backdrop-blur-xl p-8 rounded-[3rem] shadow-2xl border border-red-500/20"
+        className="max-w-md w-full red-glass p-10 rounded-[3.5rem] shadow-2xl relative overflow-hidden"
       >
+        <div className="absolute top-0 right-0 w-32 h-32 bg-red-600/10 blur-3xl -mr-16 -mt-16 rounded-full" />
         <h1 className="text-4xl text-[#FF4D6D] font-display font-bold mb-6">Access Required 🔐</h1>
         <p className="text-gray-600 mb-8 font-body">Only my special person can enter here.</p>
         

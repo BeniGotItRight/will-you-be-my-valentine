@@ -158,9 +158,10 @@ const RealtimeQuiz = () => {
         key={gameState.question_index}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-red-950/40 p-10 rounded-[3rem] border border-red-500/30 shadow-2xl backdrop-blur-lg w-full max-w-2xl"
+        className="red-glass p-12 rounded-[3.5rem] shadow-2xl relative overflow-hidden w-full max-w-2xl"
       >
-        <h3 className="text-3xl font-black italic text-white leading-tight mb-8 drop-shadow-md text-center">
+        <div className="absolute top-0 right-0 w-40 h-40 bg-red-600/10 blur-3xl -mr-20 -mt-20 rounded-full" />
+        <h3 className="text-3xl md:text-4xl font-black italic text-white leading-tight mb-8 drop-shadow-md text-center relative z-10">
           "{currentQ}"
         </h3>
 

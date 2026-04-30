@@ -18,27 +18,30 @@ const LetterModal = ({ isOpen }: LetterModalProps) => {
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.5, duration: 1 }}
-        className="bg-white/90 backdrop-blur-md rounded-lg shadow-2xl max-w-md w-full p-4 sm:p-6 md:p-8 my-4 relative overflow-hidden border border-white/50 max-h-[90vh] overflow-y-auto"
+        className="glass p-10 sm:p-12 md:p-16 rounded-[4rem] shadow-2xl max-w-2xl w-full relative overflow-hidden border border-white/10 max-h-[90vh] overflow-y-auto"
       >
-        {/* Glow effect */}
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-pink-100/30 to-transparent pointer-events-none" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 blur-[100px] -mr-32 -mt-32 rounded-full" />
         
-        <div className="relative z-10 text-gray-800 space-y-3 sm:space-y-4 text-center md:text-left">
-            <p className="font-serif text-sm sm:text-base md:text-lg leading-relaxed text-gray-700 italic">
+        <div className="relative z-10 text-white space-y-6 text-center leading-relaxed">
+            <h2 className="text-4xl font-black italic text-red-500 mb-8 uppercase tracking-tighter">My Confession 💌</h2>
+            <p className="text-lg md:text-xl font-medium text-gray-300 italic">
             "They say some connections are just meant to be, and I think ours is proving to be something truly special. Every moment we spend together and every conversation we have has made you one of the people I look forward to seeing most.
             </p>
-            <p className="font-serif text-sm sm:text-base md:text-lg leading-relaxed text-gray-700 italic">
+            <p className="text-lg md:text-xl font-medium text-gray-300 italic">
             I appreciate every single laugh we share and how you've been there for me. You make my world much brighter, and I cherish the way we've grown so close.
             </p>
-            <p className="font-serif text-sm sm:text-base md:text-lg leading-relaxed text-gray-700 italic">
+            <p className="text-lg md:text-xl font-medium text-gray-300 italic">
             Thank you for being such an incredible presence in my life, KENDYYY. I'm so lucky to have you, and I can't wait to see where our journey takes us and all the new memories we'll create together.
             </p>
-            <p className="font-serif text-sm sm:text-base md:text-lg leading-relaxed text-gray-700 font-semibold mt-4 sm:mt-6">
+            <p className="text-2xl font-black text-white mt-12">
             You're truly special to me, KENDYYY.
             </p>
-            <p className="font-serif text-sm sm:text-base md:text-lg leading-relaxed text-gray-700 mt-2 text-right">
-            Always,<br/>Benson
-            </p>
+            <div className="pt-10 flex justify-end">
+              <div className="text-right">
+                <p className="text-gray-400 uppercase tracking-widest text-xs font-bold mb-1">Always Yours,</p>
+                <p className="text-4xl font-black italic text-red-500 tracking-tighter">Benson</p>
+              </div>
+            </div>
         </div>
       </motion.div>
     </motion.div>

@@ -95,6 +95,15 @@ function App() {
     <div className="min-h-[100dvh] flex flex-col items-center justify-center relative bg-[#0a0a0a] text-white overflow-hidden selection:bg-red-600 selection:text-white font-sans">
       <div className="noise-bg" />
       <FloatingHearts />
+      <div className="z-[60] fixed top-0 left-0 w-full h-1 bg-white/5">
+        <motion.div 
+          className="h-full bg-red-600 shadow-[0_0_15px_rgba(220,38,38,0.8)]"
+          initial={{ width: 0 }}
+          animate={{ width: `${(stageIndex / (stages.length - 1)) * 100}%` }}
+          transition={{ type: 'spring', damping: 20 }}
+        />
+      </div>
+
       <div className="z-10 w-full max-w-lg px-6 flex flex-col items-center justify-center min-h-screen text-center">
         <AnimatePresence mode="wait">
           <motion.div
@@ -209,9 +218,10 @@ function App() {
 
             {stage.startsWith('deep') && (
               <div className="space-y-8 w-full">
-                <h2 className="text-xs font-black text-red-600 uppercase tracking-[0.5em]">Extreme Confession #{stage.slice(4)}</h2>
-                <div className="bg-red-950/40 p-12 rounded-[3.5rem] border-l-8 border-red-600 shadow-2xl backdrop-blur-md ring-1 ring-white/10">
-                   <p className="text-3xl md:text-4xl font-black italic text-white leading-tight drop-shadow-lg">
+                <h2 className="text-xs font-black text-red-600 uppercase tracking-[0.5em] mb-4">Extreme Confession #{stage.slice(4)}</h2>
+                <div className="red-glass p-12 rounded-[3.5rem] border-l-8 border-red-600 shadow-2xl relative overflow-hidden">
+                   <div className="absolute top-0 right-0 w-32 h-32 bg-red-600/10 blur-3xl -mr-16 -mt-16 rounded-full" />
+                   <p className="text-3xl md:text-4xl font-black italic text-white leading-tight drop-shadow-lg relative z-10">
                     {stage === 'deep1' && "I want to be the only thing you think about when you're alone. 🫦"}
                     {stage === 'deep2' && "I want to feel your heart pounding against my chest in the dark. 🌑"}
                     {stage === 'deep3' && "I want to leave a trail of kisses from your neck all the way down. 🔥"}
