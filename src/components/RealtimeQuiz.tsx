@@ -25,7 +25,7 @@ interface QuizState {
 }
 
 const RealtimeQuiz = () => {
-  const [role, setRole] = useState<PlayerRole>(null);
+  const [role, setRole] = useState<PlayerRole>(localStorage.getItem('user_role') as PlayerRole);
   const [gameState, setGameState] = useState<QuizState>({
     id: 1,
     question_index: 0,

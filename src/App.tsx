@@ -42,8 +42,9 @@ const stages: Stage[] = [
   'contract', 'breathless', 'blind2', 'whisperwall', 'radar', 'wheel', 'secretfolder', 'finaltest', // 81-88
   'ascend1', 'ascend2', 'ascend3', 'ascend4', 'ascend5', 'ascend6', 'ascend7', 'obsession', 'labyrinth', // 89-97
   'deep1', 'deep2', 'deep3', 'deep4', 'deep5', 'deep6', 'deep7', 'deep8', 'deep9', 'deep10', // 98-107
+  'todolist', 'diary', 'overload', 'timer', 'moodring',
   ...[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18].map(n => `descent${n}` as Stage), // 108-125
-  'finalsecret', 'ask', 'celebrate', 'letter', 'outro1', 'outro2', 'outro3', 'outro4'
+  'finalsecret', 'quiz', 'ask', 'celebrate', 'letter', 'outro1', 'outro2', 'outro3', 'outro4'
 ];
 
 function App() {
@@ -191,7 +192,7 @@ function App() {
             {stage === 'spicyscratch' && <div className="space-y-8"><h2 className="text-3xl font-black uppercase italic">Secret Scratch Card</h2><SpicyScratch /><button onClick={nextStage} className="text-red-500 font-bold underline">Next Page</button></div>}
             {stage === 'moodmap' && <div className="space-y-8 w-full"><h2 className="text-3xl font-black uppercase italic text-red-600">The Mood Map</h2><MoodMap /><button onClick={nextStage} className="bg-red-600 px-8 py-2 rounded-full font-bold uppercase mt-4">Next Page</button></div>}
 
-            {(['touchmap','blindfold','whisper','temperature','challenge','confession','outfit','sensory','countdown','fantasy','pleasurepath','command','redroom','pulsesync','alphabet','heatmap','ultimatedare','tease','fact1','fact2','fact3','fact4','fact5','contract','breathless','blind2','whisperwall','radar','wheel','secretfolder','finaltest','ascend1','ascend2','ascend3','ascend4','ascend5','ascend6','ascend7'].includes(stage)) && (
+            {(['touchmap','blindfold','whisper','temperature','challenge','confession','outfit','sensory','countdown','fantasy','pleasurepath','command','redroom','pulsesync','heatmap','ultimatedare','tease','contract','breathless','blind2','whisperwall','radar','wheel','secretfolder','finaltest','ascend1','ascend2','ascend3','ascend4','ascend5','ascend6','ascend7','todolist','diary','overload','timer','moodring','obsession','labyrinth'].includes(stage) || stage.startsWith('fact_') || stage.startsWith('memory_') || stage.startsWith('question_')) && (
               <div className="space-y-8 w-full">
                 <h2 className="text-4xl font-black text-red-600 uppercase italic tracking-tighter shadow-red-500/20 drop-shadow-2xl">{stage.toUpperCase()}</h2>
                 {stage === 'temperature' && (

@@ -18,6 +18,8 @@ const AccessPage = ({ onAccessGranted }: AccessPageProps) => {
       return;
     }
     if (day === '6' && month === 'Nov' && year === '2007') {
+      const role = nickname.toLowerCase().includes('benson') ? 'Benson' : 'Kendy';
+      localStorage.setItem('user_role', role);
       onAccessGranted(nickname);
     } else {
       setError("That's not my correct birthday! Try again. 🥺");
