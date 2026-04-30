@@ -47,6 +47,62 @@ const stages: Stage[] = [
   'finalsecret', 'quiz', 'ask', 'celebrate', 'letter', 'outro1', 'outro2', 'outro3', 'outro4'
 ];
 
+const STAGE_DETAILS: Record<string, { sub: string, text: string, icon: string }> = {
+  touchmap: { sub: "SENSORY EXPLORATION", text: "Close your eyes and imagine my hands tracing your collarbone. Where do you want them to go next?", icon: "📍" },
+  blindfold: { sub: "TOTAL SURRENDER", text: "Darkness heightens everything. Can you feel the anticipation in the air?", icon: "🕶️" },
+  whisper: { sub: "AUDITORY TEASE", text: "Lean in close. I have a secret to tell you, and it involves exactly what I'm going to do to you tonight.", icon: "👂" },
+  challenge: { sub: "NASTY DARE", text: "I dare you to text me the one thing you're most afraid of wanting. Right now.", icon: "🔥" },
+  confession: { sub: "RAW TRUTH", text: "Admission is the first step to obsession. Tell me your deepest, most unhinged thought about us.", icon: "👄" },
+  outfit: { sub: "VISUAL DESIRE", text: "Pick something that makes it impossible for me to keep my hands off you. You know exactly what I mean.", icon: "👙" },
+  sensory: { sub: "FEEL EVERYTHING", text: "Ice, heat, silk, or leather? Choose your weapon. I'll use it to drive you insane.", icon: "❄️" },
+  countdown: { sub: "THE CLOCK IS TICKING", text: "Every second that passes is a second closer to you being completely mine. Are you ready?", icon: "⏳" },
+  fantasy: { sub: "UNLEASHED", text: "Don't hold back. In this room, every single one of your 'nasty' thoughts is a command.", icon: "💭" },
+  pleasurepath: { sub: "MAPPING THE JOURNEY", text: "We're going to explore every inch, every curve, and every hidden spot. Starting... now.", icon: "🗺️" },
+  command: { sub: "OBEDIENCE", text: "When I give an order, I expect total compliance. Do you understand, KENDYYY?", icon: "👑" },
+  redroom: { sub: "THE CORE", text: "Welcome to the place where rules don't exist. Only our shared, desperate hunger.", icon: "🏮" },
+  pulsesync: { sub: "ONE HEARTBEAT", text: "Can you feel it? Our pulses are matching. The excitement is becoming uncontrollable.", icon: "💓" },
+  heatmap: { sub: "THERMAL SENSITIVITY", text: "The temperature is rising. You're glowing, and I'm the reason why.", icon: "🌡️" },
+  ultimatedare: { sub: "NO RETREAT", text: "This is the final test of your devotion. Are you willing to cross every line for me?", icon: "💥" },
+  tease: { sub: "SLOW TORTURE", text: "I'm going to take my time. I want you to beg for it before I even touch you.", icon: "👅" },
+  contract: { sub: "SOVEREIGNTY", text: "By proceeding, you agree to give me total control over your pleasure for the next 24 hours.", icon: "📜" },
+  breathless: { sub: "OXYGEN DEPRIVATION", text: "I want to hear you gasp. I want to see you struggle to find your words while I hold you.", icon: "💨" },
+  blind2: { sub: "DEEPER DARKNESS", text: "Even without sight, you can feel my presence everywhere. You can't escape me.", icon: "🌑" },
+  whisperwall: { sub: "ECHOES OF LUST", text: "Every word you've ever whispered to me is carved into my memory. Say them again.", icon: "🗣️" },
+  radar: { sub: "TRACKING DESIRE", text: "I can sense exactly where you are and exactly what you're feeling. You're radiating heat.", icon: "📡" },
+  wheel: { sub: "FATE'S CHOICE", text: "Spin the wheel. Whatever it lands on, you must endure with a smile.", icon: "🎡" },
+  secretfolder: { sub: "CLINICAL EVIDENCE", text: "I've kept a record of every 'nasty' thing you've ever said. Want to see the proof?", icon: "📁" },
+  finaltest: { sub: "GRADUATION", text: "You've made it through the fire. Now, show me that you truly belong to me.", icon: "🎓" },
+  ascend1: { sub: "ASCENSION I", text: "Rising above the mundane. Entering the realm of pure obsession.", icon: "✨" },
+  ascend2: { sub: "ASCENSION II", text: "The air is getting thinner. The pleasure is getting sharper.", icon: "✨" },
+  ascend3: { sub: "ASCENSION III", text: "Higher and higher. Don't look down. Only look at me.", icon: "✨" },
+  ascend4: { sub: "ASCENSION IV", text: "We're leaving the world behind. Only us. Only this.", icon: "✨" },
+  ascend5: { sub: "ASCENSION V", text: "Complete detachment from reality. Total focus on sensation.", icon: "✨" },
+  ascend6: { sub: "ASCENSION VI", text: "The peak is in sight. Are you trembling yet?", icon: "✨" },
+  ascend7: { sub: "ASCENSION VII", text: "Absolute peak. Limitless. Forever. Infinite.", icon: "✨" },
+  obsession: { sub: "THE FINAL FRONTIER", text: "I don't just want you. I need you. I am obsessed with every part of you.", icon: "👁️" },
+  labyrinth: { sub: "NO EXIT", text: "You've wandered too deep. The only way out is through me.", icon: "🌀" },
+  todolist: { sub: "TONIGHT'S AGENDA", text: "1. Worship. 2. Obey. 3. Beg. 4. Repeat. 5. Forever.", icon: "📋" },
+  diary: { sub: "PRIVATE ENTRY", text: "'Today, I realized that I will never let her go. She is mine in every sense of the word.'", icon: "📓" },
+  overload: { sub: "SYSTEM FAILURE", text: "Sensory overload. Your mind is blank. Only feeling remains.", icon: "⚡" },
+  timer: { sub: "COUNTDOWN TO PLEASURE", text: "The wait is almost over. The reward is going to be explosive.", icon: "⏲️" },
+  moodring: { sub: "EMOTIONAL COLOR", text: "Your aura is deep crimson. You're ready for the extreme.", icon: "💍" },
+  fact_1: { sub: "NASTY FACT #1", text: "Benson thinks about you every 5 minutes. And it's never 'sweet' thoughts. 🫦", icon: "📊" },
+  fact_2: { sub: "NASTY FACT #2", text: "The most searched term in Benson's mind is 'KENDYYY on her knees'. 👑", icon: "🔍" },
+  fact_3: { sub: "NASTY FACT #3", text: "Benson has a secret folder of every voice note you've ever sent. 🔥", icon: "📂" },
+  fact_4: { sub: "NASTY FACT #4", text: "Benson knows exactly which outfit makes you feel the most vulnerable. 👙", icon: "👗" },
+  fact_5: { sub: "NASTY FACT #5", text: "Benson's favorite sound in the world is your moan when he grips you. 👅", icon: "🔊" },
+  memory_1: { sub: "SHARED MEMORY", text: "Remember that time we talked about our wildest fantasies? We're living them now. 💭", icon: "🧠" },
+  memory_2: { sub: "SHARED MEMORY", text: "That look you gave me when you thought I wasn't watching. I saw everything. 👁️", icon: "🧠" },
+  memory_3: { sub: "SHARED MEMORY", text: "The first time I told you I wanted to own you. You didn't say no. 🔒", icon: "🧠" },
+  memory_4: { sub: "SHARED MEMORY", text: "Every time we've edged closer to the 'extreme'. Tonight, we cross the line. 🔥", icon: "🧠" },
+  memory_5: { sub: "SHARED MEMORY", text: "The way you reacted to my first 'nasty' order. It was perfect. 🫦", icon: "🧠" },
+  question_1: { sub: "NASTY QUESTION", text: "What is the one thing you're too scared to ask me to do to you? 🫦", icon: "❓" },
+  question_2: { sub: "NASTY QUESTION", text: "How many times a day do you have 'nasty' thoughts about me? 😈", icon: "❓" },
+  question_3: { sub: "NASTY QUESTION", text: "Which part of your body is the most sensitive to my touch? 🔥", icon: "❓" },
+  question_4: { sub: "NASTY QUESTION", text: "If I ordered you to do something truly unhinged, would you? 🔒", icon: "❓" },
+  question_5: { sub: "NASTY QUESTION", text: "What's the 'nastiest' thing you want to do to me tonight? 👅", icon: "❓" },
+};
+
 function App() {
   const [hasAccess, setHasAccess] = useState(false);
   const [bensonNickname, setBensonNickname] = useState('');
@@ -154,7 +210,10 @@ function App() {
                   {stage === 'alphabet_Y' && 'You Are Mine'}
                   {stage === 'alphabet_Z' && 'Zero Limits'}
                 </h3>
-                <button onClick={nextStage} className="bg-red-600 px-8 py-2 rounded-full font-bold uppercase">Next Letter</button>
+                <div className="flex flex-col items-center gap-4">
+                  <button onClick={nextStage} className="bg-red-600 px-10 py-3 rounded-full font-black uppercase tracking-tighter shadow-xl">Next Letter</button>
+                  <button onClick={prevStage} className="text-xs text-gray-500 underline">Back</button>
+                </div>
               </div>
             )}
 
@@ -173,7 +232,10 @@ function App() {
                   {stage === 'order_9' && "You will beg me to stop teasing you."}
                   {stage === 'order_10' && "You will belong to me, and only me. Forever."}
                 </p>
-                <button onClick={nextStage} className="bg-red-600 px-10 py-3 rounded-full font-bold uppercase tracking-widest">I ACCEPT 🫦</button>
+                <div className="flex flex-col items-center gap-4">
+                  <button onClick={nextStage} className="bg-red-600 px-10 py-4 rounded-full font-black uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(220,38,38,0.3)]">I ACCEPT 🫦</button>
+                  <button onClick={prevStage} className="text-xs text-gray-500 underline">Back</button>
+                </div>
               </div>
             )}
 
@@ -203,7 +265,19 @@ function App() {
 
             {(['touchmap','blindfold','whisper','temperature','challenge','confession','outfit','sensory','countdown','fantasy','pleasurepath','command','redroom','pulsesync','heatmap','ultimatedare','tease','contract','breathless','blind2','whisperwall','radar','wheel','secretfolder','finaltest','ascend1','ascend2','ascend3','ascend4','ascend5','ascend6','ascend7','todolist','diary','overload','timer','moodring','obsession','labyrinth'].includes(stage) || stage.startsWith('fact_') || stage.startsWith('memory_') || stage.startsWith('question_')) && (
               <div className="space-y-8 w-full">
-                <h2 className="text-4xl font-black text-red-600 uppercase italic tracking-tighter shadow-red-500/20 drop-shadow-2xl">{stage.toUpperCase()}</h2>
+                <div className="flex flex-col items-center gap-2">
+                  <span className="text-6xl mb-4 animate-pulse">{STAGE_DETAILS[stage]?.icon || "🔥"}</span>
+                  <h2 className="text-xs font-black text-red-500 uppercase tracking-[0.4em]">{STAGE_DETAILS[stage]?.sub || "NASTY STAGE"}</h2>
+                  <h1 className="text-4xl font-black text-white uppercase italic tracking-tighter drop-shadow-[0_0_20px_rgba(220,38,38,0.3)]">{stage.replace('_', ' ').toUpperCase()}</h1>
+                </div>
+
+                <div className="red-glass p-10 rounded-[3rem] border-2 border-red-500/20 shadow-2xl relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-red-600/10 blur-3xl -mr-16 -mt-16 rounded-full group-hover:scale-150 transition-transform duration-1000" />
+                  <p className="text-2xl font-bold italic text-gray-200 leading-relaxed relative z-10">
+                    "{STAGE_DETAILS[stage]?.text || "The heat is rising, KENDYYY. Are you ready for what comes next?"}"
+                  </p>
+                </div>
+
                 {stage === 'temperature' && (
                   <div className="bg-red-950/20 p-8 rounded-[3rem] border border-red-500/20 space-y-6">
                     <input type="range" min="0" max="100" value={temp} onChange={(e) => updateAppState({ temperature: parseInt(e.target.value) })} className="w-full h-4 bg-red-900/30 rounded-full appearance-none accent-red-600 cursor-pointer" />
@@ -211,8 +285,14 @@ function App() {
                     <p className="text-sm font-bold opacity-60 uppercase">{temp > 90 ? "CRITICAL HEAT LEVEL" : "INCREASING PRESSURE"}</p>
                   </div>
                 )}
-                <p className="text-gray-400 italic font-medium">"The heat is at 70%, KENDYYY..." {noCount > 0 && `(Missed: ${noCount})`}</p>
-                <button onClick={nextStage} className="bg-red-600 text-white px-12 py-4 rounded-full font-black shadow-2xl">DEEPER 😈</button>
+                
+                <div className="flex flex-col items-center gap-6 pt-4">
+                  <p className="text-gray-500 italic font-medium text-sm">"The experience is at {Math.round((stageIndex/stages.length)*100)}% intensity..." {noCount > 0 && `(Resisted: ${noCount})`}</p>
+                  <div className="flex gap-4">
+                    <button onClick={prevStage} className="px-8 py-3 rounded-full font-bold uppercase text-xs border border-white/10 text-gray-500 hover:text-white transition-colors">Back</button>
+                    <button onClick={nextStage} className="bg-red-600 text-white px-12 py-4 rounded-full font-black shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:scale-105 active:scale-95 transition-all uppercase tracking-widest text-sm">DEEPER 😈</button>
+                  </div>
+                </div>
               </div>
             )}
 
