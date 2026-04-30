@@ -17,7 +17,8 @@ const AccessPage = ({ onAccessGranted }: AccessPageProps) => {
       setError('Please give me a nickname first! ❤️');
       return;
     }
-    if (day === '6' && month === 'Nov' && year === '2007') {
+    const cleanDay = day.replace(/^0+/, '');
+    if (cleanDay === '6' && month === 'Nov' && year === '2007') {
       const role = nickname.toLowerCase().includes('benson') ? 'Benson' : 'Kendy';
       localStorage.setItem('user_role', role);
       onAccessGranted(nickname);
